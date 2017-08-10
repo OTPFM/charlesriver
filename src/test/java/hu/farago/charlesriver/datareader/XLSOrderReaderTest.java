@@ -1,18 +1,19 @@
 package hu.farago.charlesriver.datareader;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.ResourceUtils;
 
 import hu.farago.charlesriver.model.dto.XLSOrder;
 
@@ -20,21 +21,24 @@ import hu.farago.charlesriver.model.dto.XLSOrder;
 @SpringBootTest
 public class XLSOrderReaderTest {
 
+	private static final String CRD_INPUTJOBS_XLSX = "/crd_inputjobs.xlsx";
+
 	@Autowired
 	private XLSOrderReader reader;
 	
 	private File xlsFile;
 	
 	@Before
-	public void before() {
-		xlsFile = FileUtils.getFile("crd_inputjobs.xlsx");
+	public void before() throws FileNotFoundException {
+		xlsFile = ResourceUtils.getFile(this.getClass().getResource(CRD_INPUTJOBS_XLSX));
 	}
 	
 	@Test
-	public void readFileAndRetrieveOrdersTest() throws IOException {
+	public void readFileAndRetrieveOrdersTest() throws Exception {
 		assertNotNull(xlsFile);
 		List<XLSOrder> orders = reader.readFileAndRetrieveOrders(xlsFile);
 		assertNotNull(orders);
+		assertEquals(3, orders.size());
 	}
 
 }

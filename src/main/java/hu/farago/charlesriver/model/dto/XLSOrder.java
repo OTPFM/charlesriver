@@ -2,6 +2,7 @@ package hu.farago.charlesriver.model.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class XLSOrder {
 
@@ -16,8 +17,8 @@ public class XLSOrder {
 	private Double fillPrice;
 	private String targetCrrncy;
 	private String strategyCd1;
-	private LocalDate tradeDate;
-	private LocalDateTime udfChar_2;
+	private Date tradeDate;
+	private Date udfChar_2;
 	private String refId;
 
 	public Integer getAcctCd() {
@@ -108,19 +109,19 @@ public class XLSOrder {
 		this.strategyCd1 = strategyCd1;
 	}
 
-	public LocalDate getTradeDate() {
+	public Date getTradeDate() {
 		return tradeDate;
 	}
 
-	public void setTradeDate(LocalDate tradeDate) {
+	public void setTradeDate(Date tradeDate) {
 		this.tradeDate = tradeDate;
 	}
 
-	public LocalDateTime getUdfChar_2() {
+	public Date getUdfChar_2() {
 		return udfChar_2;
 	}
 
-	public void setUdfChar_2(LocalDateTime udfChar_2) {
+	public void setUdfChar_2(Date udfChar_2) {
 		this.udfChar_2 = udfChar_2;
 	}
 
