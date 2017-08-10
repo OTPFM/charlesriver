@@ -43,18 +43,26 @@ public class ComplianceService {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Compliance run ");
 		sb.append(result.isSuccess() ? "successful." : "failed.");
-		sb.append(" Alerts Generated: ").append(result.getAlertCount()).append(" ");
-		sb.append(" Warnings Generated: ").append(result.getWarningCount()).append(" ");
-		sb.append(" Data Exceptions Generated: ").append(result.getDataExceptionCount()).append(" ");
+		sb.append("\nAlerts Generated: ").append(result.getAlertCount());
+		sb.append("\nWarnings Generated: ").append(result.getWarningCount());
+		sb.append("\nData Exceptions Generated: ").append(result.getDataExceptionCount());
 		return sb;
 	}
 
 	private StringBuffer prepareResult(CPLResultWrapper wrapper) {
 		StringBuffer sb = prepareResult(wrapper.getResult());
 		ViolationBean[] violations = wrapper.getViolations();
-		sb.append("  Number of Violations : ").append(violations.length).append("  ");
+		sb.append("\nNumber of Violations: ").append(violations.length);
+		for (ViolationBean bean : violations) {
+			sb.append("\n * ");
+			sb.append(bean.toString());
+		}
 		TestBean[] tests = wrapper.getTests();
-		sb.append("Number of Tests : ").append(tests.length);
+		sb.append("\nNumber of Tests: ").append(tests.length);
+		for (TestBean bean : tests) {
+			sb.append("\n * ");
+			sb.append(bean.toString());
+		}
 		return sb;
 	}
 
