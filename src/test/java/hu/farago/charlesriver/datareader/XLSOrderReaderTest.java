@@ -3,6 +3,7 @@ package hu.farago.charlesriver.datareader;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -30,7 +31,7 @@ public class XLSOrderReaderTest {
 	}
 	
 	@Test
-	public void readFileAndRetrieveOrdersTest() {
+	public void readFileAndRetrieveOrdersTest() throws IOException {
 		assertNotNull(xlsFile);
 		List<XLSOrder> orders = reader.readFileAndRetrieveOrders(xlsFile);
 		assertNotNull(orders);
