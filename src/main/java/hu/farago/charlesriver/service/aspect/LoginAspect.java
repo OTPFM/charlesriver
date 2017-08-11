@@ -51,28 +51,34 @@ public class LoginAspect {
 	@Around("execution(* hu.farago.charlesriver.service.*Service.*(..))")
 	public Object aroundSampleCreation(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
-		ClientSession clientSession = new ClientSession(protocol, hostname, port);
-		clientSession.setGzipRequestEnabled(false);
-		clientSession.setGzipResponseEnabled(false);
-
 		Object ret = null;
-		Object[] otherAttributes = proceedingJoinPoint.getArgs();
-		otherAttributes = Arrays.copyOfRange(otherAttributes, 1, otherAttributes.length);
+		ClientSession existingSession = (ClientSession) proceedingJoinPoint.getArgs()[0];
+		if (existingSession != null) {
+			ret = proceedingJoinPoint.proceed();
+		} else {
 
-		try {
-			clientSession.logon(username, password);
+			ClientSession clientSession = new ClientSession(protocol, hostname, port);
+			clientSession.setGzipRequestEnabled(false);
+			clientSession.setGzipResponseEnabled(false);
+
+			Object[] otherAttributes = proceedingJoinPoint.getArgs();
+			otherAttributes = Arrays.copyOfRange(otherAttributes, 1, otherAttributes.length);
+
 			try {
-				Object[] allAttributes = ArrayUtils.addAll(new Object[] { clientSession }, otherAttributes);
-				ret = proceedingJoinPoint.proceed(allAttributes);
-			} finally {
-				clientSession.logout();
+				clientSession.logon(username, password);
+				try {
+					Object[] allAttributes = ArrayUtils.addAll(new Object[] { clientSession }, otherAttributes);
+					ret = proceedingJoinPoint.proceed(allAttributes);
+				} finally {
+					clientSession.logout();
+				}
+			} catch (ServiceException e) {
+				LOGGER.error("Error message received from server: " + e.getFaultString());
+			} catch (TransportException e) {
+				LOGGER.error("Error communicating with server: " + e.getLocalizedMessage());
 			}
-		} catch (ServiceException e) {
-			LOGGER.error("Error message received from server: " + e.getFaultString());
-		} catch (TransportException e) {
-			LOGGER.error("Error communicating with server: " + e.getLocalizedMessage());
-		}
 
+		}
 		return ret;
 	}
 

@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class XLSOrder {
 
 	private Integer acctCd;
@@ -18,7 +21,7 @@ public class XLSOrder {
 	private String targetCrrncy;
 	private String strategyCd1;
 	private Date tradeDate;
-	private Date udfChar_2;
+	private String udfChar_2;
 	private String refId;
 
 	public Integer getAcctCd() {
@@ -116,12 +119,12 @@ public class XLSOrder {
 	public void setTradeDate(Date tradeDate) {
 		this.tradeDate = tradeDate;
 	}
-
-	public Date getUdfChar_2() {
+	
+	public String getUdfChar_2() {
 		return udfChar_2;
 	}
-
-	public void setUdfChar_2(Date udfChar_2) {
+	
+	public void setUdfChar_2(String udfChar_2) {
 		this.udfChar_2 = udfChar_2;
 	}
 
@@ -133,4 +136,14 @@ public class XLSOrder {
 		this.refId = refId;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj, "udfChar_2", "tradeDate");
+	}
+	
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+	
 }

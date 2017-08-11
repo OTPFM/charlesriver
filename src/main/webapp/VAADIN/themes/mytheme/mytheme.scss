@@ -1,0 +1,16 @@
+@import "../valo/valo.scss";
+
+@mixin mytheme {
+	@include valo;
+
+	.v-button {
+		color: blue;
+	}
+
+	.bordered {
+		width: 100%;
+		padding: 25px;
+ 		background: white;
+ 		border: 1px dashed black;
+ 	}
+}

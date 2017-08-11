@@ -82,7 +82,7 @@ public class XLSOrderReader {
 		order.setStrategyCd1(readCellValueString(cellIterator));
 
 		order.setTradeDate(readCellValueDate(cellIterator, "yyyy-MM-dd"));
-		order.setUdfChar_2(readCellValueDate(cellIterator, "yyyy.MM.dd HH:mm"));
+		order.setUdfChar_2(readCellValueString(cellIterator));
 
 		order.setRefId(readCellValueString(cellIterator));
 		return order;

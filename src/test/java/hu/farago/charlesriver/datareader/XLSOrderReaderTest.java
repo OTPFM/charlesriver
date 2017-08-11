@@ -39,6 +39,26 @@ public class XLSOrderReaderTest {
 		List<XLSOrder> orders = reader.readFileAndRetrieveOrders(xlsFile);
 		assertNotNull(orders);
 		assertEquals(3, orders.size());
+		assertEquals(testLine(), orders.get(0));
+	}
+	
+	private XLSOrder testLine() {
+		XLSOrder ret = new XLSOrder();
+		
+		ret.setAcctCd(305);
+		ret.setBasketId("GC1");
+		ret.setExecBroker("MERRILL");
+		ret.setSecId("US0378331005");
+		ret.setBbCode("AAPL US");
+		ret.setTransType("BUYL");
+		ret.setTargetQty(1000.0);
+		ret.setFillQty(null);
+		ret.setFillPrice(null);
+		ret.setTargetCrrncy("USD");
+		ret.setStrategyCd1("CVTZ");
+		ret.setRefId("TZBY170621SPY");
+		
+		return ret;
 	}
 
 }
