@@ -66,16 +66,14 @@ public class LoginAspect {
 
 			try {
 				clientSession.logon(username, password);
-				try {
-					Object[] allAttributes = ArrayUtils.addAll(new Object[] { clientSession }, otherAttributes);
-					ret = proceedingJoinPoint.proceed(allAttributes);
-				} finally {
-					clientSession.logout();
-				}
+				Object[] allAttributes = ArrayUtils.addAll(new Object[] { clientSession }, otherAttributes);
+				ret = proceedingJoinPoint.proceed(allAttributes);
 			} catch (ServiceException e) {
 				LOGGER.error("Error message received from server: " + e.getFaultString());
 			} catch (TransportException e) {
 				LOGGER.error("Error communicating with server: " + e.getLocalizedMessage());
+			} finally {
+				clientSession.logout();
 			}
 
 		}

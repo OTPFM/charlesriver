@@ -3,6 +3,8 @@ package hu.farago.charlesriver.service;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.doNothing;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.util.Lists;
@@ -46,12 +48,12 @@ public class OrderServiceTest {
 	}
 
 	@Test
-	public void placeOrdersEmptyTest() throws ServiceException, TransportException {
+	public void placeOrdersEmptyTest() throws ServiceException, TransportException, IOException {
 		orderService.placeOrders(clientSession, Lists.newArrayList());
 	}
 
 	@Test
-	public void placeOrdersSampleTest() throws ServiceException, TransportException {
+	public void placeOrdersSampleTest() throws ServiceException, TransportException, IOException {
 		List<OrderSvcReturn> retList = orderService.placeOrders(clientSession, Lists.newArrayList(testLine()));
 		assertNotNull(retList);
 	}
@@ -71,6 +73,7 @@ public class OrderServiceTest {
 		ret.setTargetCrrncy("USD");
 		ret.setStrategyCd1("CVTZ");
 		ret.setRefId("TZBY170621SPY");
+		ret.setTradeDate(new Date());
 
 		return ret;
 	}
