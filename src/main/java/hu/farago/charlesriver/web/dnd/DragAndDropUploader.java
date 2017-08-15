@@ -82,7 +82,6 @@ public class DragAndDropUploader extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				try {
-					
 					// List<OrderSvcReturn> ret = 
 					service.placeOrders(null, orders);
 				} catch (Exception e) {
