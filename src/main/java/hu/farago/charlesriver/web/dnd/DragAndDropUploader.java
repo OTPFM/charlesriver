@@ -11,11 +11,11 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Html5File;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.dnd.FileDropTarget;
 
@@ -56,7 +56,8 @@ public class DragAndDropUploader extends VerticalLayout {
 			}
 		});
 
-		FileDropTarget<Label> dropTarget = new FileDropTarget<>(dropArea, event -> {
+		// FileDropTarget<Label> dropTarget = 
+		new FileDropTarget<>(dropArea, event -> {
 
 			Collection<Html5File> files = event.getFiles();
 			files.forEach(file -> {
@@ -81,6 +82,7 @@ public class DragAndDropUploader extends VerticalLayout {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				try {
+					// List<OrderSvcReturn> ret = 
 					service.placeOrders(null, orders);
 				} catch (Exception e) {
 					Notification.show(e.getMessage(), Type.ERROR_MESSAGE);
