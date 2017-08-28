@@ -113,10 +113,10 @@ public class XLSOrderReader {
 				}
 				try {
 					return Double.valueOf(cellStr);
-				} catch (Exception e1) {
+				} catch (Exception e) {
 					try {
 						return new Double(Integer.valueOf(cellStr));
-					} catch (Exception e2) {
+					} catch (Exception e3) {
 						return null;
 					}
 				}
